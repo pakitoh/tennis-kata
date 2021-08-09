@@ -2,20 +2,11 @@ package com.dexma.challenge.tennis;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
+import static com.dexma.challenge.tennis.Game.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 public class GameTest {
-
-    public static final String SERVER_WINS = "SERVER_WINS";
-    public static final String RECEIVER_WINS = "RECEIVER_WINS";
-    public static final String ZERO = "0";
-    public static final String FIFTEEN = "15";
-    public static final String THIRTY = "30";
-    public static final String FORTY = "40";
-    public static final String ADVANTAGE = "A";
 
     @Test
     public void shouldReturn15_0WhenScoreIs0_0AndServerWins() {
@@ -47,7 +38,6 @@ public class GameTest {
         assertThat(updatedScore, equalTo(expectedScore));
     }
 
-
     @Test
     public void shouldReturn40_AWhenScoreIs40_40AndReceiverWins() {
         GameScore currentScore = new GameScore(FORTY, FORTY);
@@ -57,4 +47,15 @@ public class GameTest {
 
         assertThat(updatedScore, equalTo(expectedScore));
     }
+
+    @Test
+    public void shouldReturn40_40WhenScoreIs40_AAndReceiverWins() {
+        GameScore currentScore = new GameScore(ADVANTAGE, FORTY);
+        GameScore expectedScore = new GameScore(FORTY, FORTY);
+
+        GameScore updatedScore = new Game().point(RECEIVER_WINS, currentScore);
+
+        assertThat(updatedScore, equalTo(expectedScore));
+    }
+
 }
