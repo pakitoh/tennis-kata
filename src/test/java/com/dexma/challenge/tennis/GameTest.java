@@ -15,6 +15,7 @@ public class GameTest {
     public static final String FIFTEEN = "15";
     public static final String THIRTY = "30";
     public static final String FORTY = "40";
+    public static final String ADVANTAGE = "A";
 
     @Test
     public void shouldReturn15_0WhenScoreIs0_0AndServerWins() {
@@ -42,6 +43,17 @@ public class GameTest {
         GameScore expectedScore = new GameScore(FORTY, THIRTY);
 
         GameScore updatedScore = new Game().point(SERVER_WINS, currentScore);
+
+        assertThat(updatedScore, equalTo(expectedScore));
+    }
+
+
+    @Test
+    public void shouldReturn40_AWhenScoreIs40_40AndReceiverWins() {
+        GameScore currentScore = new GameScore(FORTY, FORTY);
+        GameScore expectedScore = new GameScore(FORTY, ADVANTAGE);
+
+        GameScore updatedScore = new Game().point(RECEIVER_WINS, currentScore);
 
         assertThat(updatedScore, equalTo(expectedScore));
     }

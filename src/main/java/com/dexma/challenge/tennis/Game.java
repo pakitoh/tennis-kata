@@ -16,9 +16,9 @@ public class Game {
                 return "30";
             case "30":
                 return "40";
+            case "40":
+                return "A";
         }
         throw new IllegalStateException();
     }
-
-
 }
