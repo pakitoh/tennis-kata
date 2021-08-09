@@ -58,4 +58,13 @@ public class GameTest {
         assertThat(updatedScore, equalTo(expectedScore));
     }
 
+    @Test
+    public void shouldReturn40_WinWhenScoreIs40_AAndReceiverWins() {
+        GameScore currentScore = new GameScore(FORTY, ADVANTAGE);
+        GameScore expectedScore = new GameScore(FORTY, WIN);
+
+        GameScore updatedScore = new Game().point(RECEIVER_WINS, currentScore);
+
+        assertThat(updatedScore, equalTo(expectedScore));
+    }
 }

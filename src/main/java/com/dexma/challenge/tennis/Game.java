@@ -8,6 +8,7 @@ public class Game {
     public static final String THIRTY = "30";
     public static final String FORTY = "40";
     public static final String ADVANTAGE = "A";
+    public static final String WIN = "WIN";
 
     public GameScore point(String winner, GameScore currentScore) {
         GameScore newScore = addPoint(winner, currentScore);
@@ -34,6 +35,8 @@ public class Game {
                 return FORTY;
             case FORTY:
                 return ADVANTAGE;
+            case ADVANTAGE:
+                return WIN;
         }
         throw new IllegalStateException();
     }
