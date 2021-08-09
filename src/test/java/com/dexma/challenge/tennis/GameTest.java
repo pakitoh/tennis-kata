@@ -59,6 +59,16 @@ public class GameTest {
     }
 
     @Test
+    public void shouldReturnWin_30WhenScoreIs40_30AndServerWins() {
+        GameScore currentScore = new GameScore(FORTY, THIRTY);
+        GameScore expectedScore = new GameScore(WIN, THIRTY);
+
+        GameScore updatedScore = new Game().point(SERVER_WINS, currentScore);
+
+        assertThat(updatedScore, equalTo(expectedScore));
+    }
+
+    @Test
     public void shouldReturn40_WinWhenScoreIs40_AAndReceiverWins() {
         GameScore currentScore = new GameScore(FORTY, ADVANTAGE);
         GameScore expectedScore = new GameScore(FORTY, WIN);

@@ -12,7 +12,7 @@ public class Game {
 
     public GameScore point(String winner, GameScore currentScore) {
         GameScore newScore = addPoint(winner, currentScore);
-        if(isDeuceAgain(newScore)) {
+        if (isDeuceAgain(newScore)) {
             return new GameScore(FORTY, FORTY);
         }
         return newScore;
@@ -20,12 +20,16 @@ public class Game {
 
     private GameScore addPoint(String winner, GameScore currentScore) {
         if (SERVER_WINS.equals(winner)) {
-            return new GameScore(next(currentScore.server()), currentScore.receiver());
+            return new GameScore(
+                    next(currentScore.server(), currentScore.receiver()),
+                    currentScore.receiver());
         }
-        return new GameScore(currentScore.server(), next(currentScore.receiver()));
+        return new GameScore(
+                currentScore.server(),
+                next(currentScore.receiver(), currentScore.receiver()));
     }
 
-    private String next(String currentScore) {
+    private String next(String currentScore, String opponentScore) {
         switch (currentScore) {
             case ZERO:
                 return FIFTEEN;
@@ -34,7 +38,11 @@ public class Game {
             case THIRTY:
                 return FORTY;
             case FORTY:
-                return ADVANTAGE;
+                if (FORTY.equals(opponentScore) ||
+                        ADVANTAGE.equals(opponentScore)) {
+                    return ADVANTAGE;
+                }
+                return WIN;
             case ADVANTAGE:
                 return WIN;
         }
@@ -42,6 +50,7 @@ public class Game {
     }
 
     private boolean isDeuceAgain(GameScore newScore) {
-        return newScore.server() == ADVANTAGE && newScore.receiver() == ADVANTAGE;
+        return newScore.server() == ADVANTAGE &&
+                newScore.receiver() == ADVANTAGE;
     }
 }
