@@ -10,18 +10,18 @@ public class Game {
     public static final String ADVANTAGE = "A";
 
     public GameScore point(String winner, GameScore currentScore) {
-        GameScore newScore = calculate(winner, currentScore);
-        if(newScore.server() == ADVANTAGE && newScore.receiver() == ADVANTAGE) {
+        GameScore newScore = addPoint(winner, currentScore);
+        if(isDeuceAgain(newScore)) {
             return new GameScore(FORTY, FORTY);
         }
         return newScore;
     }
 
-    private GameScore calculate(String winner, GameScore currentScore) {
-        if ("RECEIVER_WINS".equals(winner)) {
-            return new GameScore(currentScore.server(), next(currentScore.receiver()));
+    private GameScore addPoint(String winner, GameScore currentScore) {
+        if (SERVER_WINS.equals(winner)) {
+            return new GameScore(next(currentScore.server()), currentScore.receiver());
         }
-        return new GameScore(next(currentScore.server()), currentScore.receiver());
+        return new GameScore(currentScore.server(), next(currentScore.receiver()));
     }
 
     private String next(String currentScore) {
@@ -36,5 +36,9 @@ public class Game {
                 return ADVANTAGE;
         }
         throw new IllegalStateException();
+    }
+
+    private boolean isDeuceAgain(GameScore newScore) {
+        return newScore.server() == ADVANTAGE && newScore.receiver() == ADVANTAGE;
     }
 }
