@@ -1,13 +1,17 @@
-package com.dexma.challenge.tennis;
+package com.dexma.challenge.tennis.rules;
 
-import static com.dexma.challenge.tennis.Game.ADVANTAGE;
+import com.dexma.challenge.tennis.GameScore;
+import com.dexma.challenge.tennis.Rule;
+
+import static com.dexma.challenge.tennis.rules.PlayerScore.ADVANTAGE;
+import static com.dexma.challenge.tennis.rules.PlayerScore.FORTY;
 
 public class DeuceRule implements Rule {
 
     @Override
     public GameScore apply(String winner, GameScore currentScore) {
         if (isDeuceAgain(currentScore)) {
-            return new GameScore(Game.FORTY, Game.FORTY);
+            return new GameScore(FORTY, FORTY);
         }
         return currentScore;
     }

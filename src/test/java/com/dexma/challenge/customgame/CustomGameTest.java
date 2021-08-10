@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.dexma.challenge.tennis.Game.*;
+import static com.dexma.challenge.tennis.rules.PlayerScore.*;
+import static com.dexma.challenge.tennis.rules.Winner.RECEIVER_WINS;
+import static com.dexma.challenge.tennis.rules.Winner.SERVER_WINS;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 

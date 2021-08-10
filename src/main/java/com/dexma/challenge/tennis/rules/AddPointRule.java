@@ -1,9 +1,14 @@
-package com.dexma.challenge.tennis;
+package com.dexma.challenge.tennis.rules;
 
-import static com.dexma.challenge.tennis.Game.*;
+import com.dexma.challenge.tennis.GameScore;
+import com.dexma.challenge.tennis.Rule;
+
+import static com.dexma.challenge.tennis.rules.PlayerScore.*;
+import static com.dexma.challenge.tennis.rules.Winner.SERVER_WINS;
 
 public class AddPointRule implements Rule {
 
+    @Override
     public GameScore apply(String winner, GameScore currentScore) {
         if (SERVER_WINS.equals(winner)) {
             return new GameScore(

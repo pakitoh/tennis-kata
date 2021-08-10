@@ -1,10 +1,10 @@
 package com.dexma.challenge.customgame;
 
-import com.dexma.challenge.tennis.Game;
 import com.dexma.challenge.tennis.GameScore;
 import com.dexma.challenge.tennis.Rule;
 
-import static com.dexma.challenge.tennis.Game.FORTY;
+import static com.dexma.challenge.tennis.rules.PlayerScore.FORTY;
+import static com.dexma.challenge.tennis.rules.PlayerScore.ZERO;
 
 public class NoDeuceRule implements Rule {
 
@@ -12,7 +12,7 @@ public class NoDeuceRule implements Rule {
     public GameScore apply(String winner, GameScore currentScore) {
         if (FORTY.equals(currentScore.server()) &&
                 FORTY.equals(currentScore.receiver())) {
-            return new GameScore(Game.ZERO, Game.ZERO);
+            return new GameScore(ZERO, ZERO);
         }
         return currentScore;
     }

@@ -3,10 +3,12 @@ package com.dexma.challenge.customgame;
 import com.dexma.challenge.tennis.GameScore;
 import com.dexma.challenge.tennis.Rule;
 
-import static com.dexma.challenge.tennis.Game.*;
+import static com.dexma.challenge.tennis.rules.PlayerScore.*;
+import static com.dexma.challenge.tennis.rules.Winner.SERVER_WINS;
 
 public class AddPointWithNoAdvantageRule implements Rule {
 
+    @Override
     public GameScore apply(String winner, GameScore currentScore) {
         if (SERVER_WINS.equals(winner)) {
             return new GameScore(
