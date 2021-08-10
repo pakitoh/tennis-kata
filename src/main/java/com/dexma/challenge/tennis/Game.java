@@ -12,12 +12,20 @@ public class Game {
     public static final String ADVANTAGE = "A";
     public static final String WIN = "WIN";
 
-    private final List<Rule> ruleSet = List.of(
-            new AddPointRule(),
-            new DeuceRule());
+    private final List<Rule> rules;
+
+    public Game() {
+        rules = List.of(
+                new AddPointRule(),
+                new DeuceRule());
+    }
+
+    public Game(List<Rule> rules) {
+        this.rules = rules;
+    }
 
     public GameScore point(String winner, GameScore currentScore) {
-        return ruleSet
+        return rules
                 .stream()
                 .reduce(currentScore,
                         (score, rule) -> rule.apply(winner, score),
