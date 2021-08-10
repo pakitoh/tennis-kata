@@ -5,7 +5,7 @@ import static com.dexma.challenge.tennis.Game.*;
 public class AddPointRule implements Rule {
 
     public GameScore apply(String winner, GameScore currentScore) {
-        if (Game.SERVER_WINS.equals(winner)) {
+        if (SERVER_WINS.equals(winner)) {
             return new GameScore(
                     next(currentScore.server(), currentScore.receiver()),
                     currentScore.receiver());
@@ -15,8 +15,8 @@ public class AddPointRule implements Rule {
                 next(currentScore.receiver(), currentScore.receiver()));
     }
 
-    private String next(String currentScore, String opponentScore) {
-        switch (currentScore) {
+    private String next(String winnerScore, String opponentScore) {
+        switch (winnerScore) {
             case ZERO:
                 return FIFTEEN;
             case FIFTEEN:
