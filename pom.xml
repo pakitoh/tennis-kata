@@ -5,7 +5,7 @@
 
     <groupId>com.dexma.challenge</groupId>
     <artifactId>tennis-kata</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0</version>
     <name>tennis-kata</name>
     <description>Library to compute tennis score game</description>
 
