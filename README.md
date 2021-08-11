@@ -1,9 +1,21 @@
 # The Tennis Kata
 
+## Table of Contents
+
+- [Introduction](#Introduction)
+- [Goal](#Goal)
+- [Development](#development)
+  - [Feature1](#Feature1)
+  - [Feature2](#Feature2)
+- [Build](#Build)
+- [Usage](#Usage)
+
+
 ## Introduction
+
 Tennis is a ball and racket sport that is scored in an interesting way. The scoring system of a tennis match is based on points, games and sets. We will focus on the scoring of points inside a
 single game for the scope of this exercise, leaving explicitly out the set & match management.
-The rules that we want you to consider are the ones found in the section “Game Score” of the wikipedia page of Tennis Scoring System (excluding the tie-break, which is also out of the scope of this exercise)
+The rules that we want you to consider are the ones found in the section [“Game Score”](https://en.wikipedia.org/wiki/Tennis_scoring_system#Game_score) of the wikipedia page of Tennis Scoring System (excluding the tie-break, which is also out of the scope of this exercise)
 
 ### Tennis Scoring System
 
@@ -21,13 +33,28 @@ A game consists of a sequence of points played with the same player serving, and
 |----------------------|--------------------|
 </pre>
 
-For instance, if the server has won three points so far in the game, and the non-server has won one, the score is "40–15".
-When both sides have won the same number of points within a given game—i.e., when each side has won one, or two, points—the score is described as "15 all" and "30 all", respectively. However, if each player has won three points, the score is called as "deuce", not "40 all". From that point on in the game, whenever the score is tied, it is described as "deuce" regardless of how many points have been played.
-However, if the score is called in French, for example at the French Open, the first occurrence of "40 all" in a single game may be called as such ("40-A", "Quarante-A", or "Quarante partout"). Thereafter, "deuce" ("Égalité" in French) is used for all other occurrences when the score returns to "40 all" within the same game.
-In standard play, scoring beyond a "deuce" score, in which the players have scored three points each, requires that one player must get two points ahead in order to win the game. This type of tennis scoring is known as "advantage scoring" (or "ads"). The side which wins the next point after deuce is said to have the advantage. If they lose the next point, the score is again deuce, since the score is tied. If the side with the advantage wins the next point, that side has won the game, since they have a lead of two points. When the server is the player with the advantage, the score may be called as "advantage in". When the server's opponent has the advantage, the score may be called as "advantage out". These phrases are sometimes shortened to "ad in" or "van in" (or "my ad") and "ad out" (or "your ad"). Alternatively, the players' names are used: in professional tournaments the umpire announces the score in this format (e.g., "advantage Nadal" or "advantage Williams").
-In the USTA rule book (but not the ITF rules), there is the following comment: "'Zero,' 'one,' 'two,' and 'three,' may be substituted for 'Love', '15', '30', and '40.' This is particularly appropriate for matches with an inexperienced player or in which one player does not understand English." 
+## Goal
 
-## Scenarios 
+The goal is to provide a library in Java that can be used to score a game in real time, so we can use it for all of the tennis related endeavours we plan to undertake in the future. 
+To begin with, we're going to need a way to update the score when a player wins a point, see what the current score is after each service, and see if there is a winner based on the current score and the rules above.
+
+## Development
+
+While developing this library I have tried to follow these principles:
+- Keep game score as pure data.
+- Lib behaviour is implemented using pure functions. 
+- Uses DDD ubiquitous language.
+- Developed with TDD.
+- Plain Java code.
+
+### Feature1
+
+#### Description
+
+To begin with, we're going to need a way to update the score when a player wins a point, see what the current score is after
+each service, and see if there is a winner based on the current score and the rules above.
+
+#### Scenarios
 
 <pre>
 |---------------------------------------------------------|
@@ -87,3 +114,70 @@ In the USTA rule book (but not the ITF rules), there is the following comment: "
 |---------------------------------------------------------|
 </pre>
 
+#### Notes
+
+I've added a tag FEATURE-1 in git to mark development at this point.
+
+There is a branch in git called FEATURE-1 in case we would like to hotfix this development.
+
+### Feature2
+
+#### Description
+Re-design the library to allow that the Tennis rules that you have applied can be dynamically replaced or extended *externally*.
+
+#### Scenarios
+
+<pre>
+|-------------------------------------------------|
+| Winning Points are Scored Correctly             |
+|-------------------------------------------------|
+| As a library user with my custom ruleset        |
+| I want the winning point to be scored correctly |
+| So that I can display the winner                |
+|-------------------------------------------------|
+| Given the score is 40:40                        |
+| When the server wins a point                    |
+| Then the server should win                      |
+|-------------------------------------------------|
+| Given the score is 40:40                        |
+| When the receiver wins a point                  |
+| Then the receiver should win                    |
+|-------------------------------------------------|
+</pre>
+
+#### Notes
+The mechanism developed is based on the chained application of a list of rules that can be defined when instantiate Game class.
+
+In case one user wants to customize library behaviour, can do this creating their own set of rules implementing `Rule` interface:
+```java
+public interface Rule {
+    GameScore apply(String winner, GameScore newScore);
+}
+```
+
+Bear in mind that the order in which the rules are incorporated to the list would define the order of application of such rule.
+
+Code developed as part of FEATURE-1 has been refactored as the default set of rules that is used when a `Game` is instantiated using the constructor with no params.
+
+As an example of this customization mechanism, rules described as part of FEATURE-2 has been developed and placed in a different package `com.dexma.challenge.customgame` modeling what a user of the library would do to create their own set of rules.
+
+## Build
+
+Project uses Apache Maven to build so a simple
+```bash
+mvn clean install
+```
+would install the JAR file in your local repository.
+
+If you want to include it in your own maven project you can add to your dependencies section: 
+```xml
+<dependency>
+    <groupId>com.dexma.challenge</groupId>
+    <artifactId>tennis-kata</artifactId>
+    <version>0.1.0</version>
+</dependency>
+```
+
+## Usage
+
+Unit tests located in `com.dexma.challenge.tennis` and `com.dexma.challenge.customgame` can be explored as examples of use of the library.
