@@ -1,5 +1,5 @@
 package com.dexma.challenge.tennis;
 
 public interface Rule {
-    GameScore apply(String winner, GameScore newScore);
+    GameScore apply(Player winner, GameScore newScore);
 }

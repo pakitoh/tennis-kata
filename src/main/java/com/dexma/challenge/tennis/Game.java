@@ -18,7 +18,7 @@ public class Game {
         this.rules = rules;
     }
 
-    public GameScore point(String winner, GameScore currentScore) {
+    public GameScore point(Player winner, GameScore currentScore) {
         return rules
                 .stream()
                 .reduce(currentScore,

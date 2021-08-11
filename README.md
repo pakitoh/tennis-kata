@@ -114,15 +114,16 @@ each service, and see if there is a winner based on the current score and the ru
 |---------------------------------------------------------|
 </pre>
 
-#### Notes
+#### Implementation
 
-I've added a tag FEATURE-1 in git to mark development at this point.
-
-There is a branch in git called FEATURE-1 in case we would like to hotfix this development.
+Emerged design from TDD is very simple, just one class containing the couple of rules we are modeling. 
+I don't think is worth it to create a complex one. 
+There is a branch in git called FEATURE-1 to identify development at this point.
 
 ### Feature2
 
 #### Description
+
 Re-design the library to allow that the Tennis rules that you have applied can be dynamically replaced or extended *externally*.
 
 #### Scenarios
@@ -145,13 +146,14 @@ Re-design the library to allow that the Tennis rules that you have applied can b
 |-------------------------------------------------|
 </pre>
 
-#### Notes
+#### Implementation
+
 The mechanism developed is based on the chained application of a list of rules that can be defined when instantiate Game class.
 
 In case one user wants to customize library behaviour, can do this creating their own set of rules implementing `Rule` interface:
 ```java
 public interface Rule {
-    GameScore apply(String winner, GameScore newScore);
+    GameScore apply(Player winner, GameScore newScore);
 }
 ```
 
@@ -174,10 +176,16 @@ If you want to include it in your own maven project you can add to your dependen
 <dependency>
     <groupId>com.dexma.challenge</groupId>
     <artifactId>tennis-kata</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
 </dependency>
 ```
 
 ## Usage
+
+Main method is located in `com.dexma.challenge.tennis.Game` class and simply gets the score of a game and calculate the new score after one of the players (server or receiver) wins one point. 
+```java
+public GameScore point(Player winner, GameScore currentScore) {
+}
+```
 
 Unit tests located in `com.dexma.challenge.tennis` and `com.dexma.challenge.customgame` can be explored as examples of use of the library.

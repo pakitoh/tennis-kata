@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static com.dexma.challenge.tennis.rules.PlayerScore.*;
-import static com.dexma.challenge.tennis.rules.Winner.RECEIVER_WINS;
-import static com.dexma.challenge.tennis.rules.Winner.SERVER_WINS;
+import static com.dexma.challenge.tennis.Player.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -22,7 +21,7 @@ public class CustomGameTest {
         List<Rule> ruleSet = List.of(new AddPointWithNoAdvantageRule());
         Game customGame = new Game(ruleSet);
 
-        GameScore updatedScore = customGame.point(RECEIVER_WINS, currentScore);
+        GameScore updatedScore = customGame.point(RECEIVER, currentScore);
 
         assertThat(updatedScore, equalTo(expectedScore));
     }
@@ -36,7 +35,7 @@ public class CustomGameTest {
                 new NoDeuceRule());
         Game customGame = new Game(ruleSet);
 
-        GameScore updatedScore = customGame.point(SERVER_WINS, currentScore);
+        GameScore updatedScore = customGame.point(SERVER, currentScore);
 
         assertThat(updatedScore, equalTo(expectedScore));
     }

@@ -3,8 +3,7 @@ package com.dexma.challenge.tennis;
 import org.junit.jupiter.api.Test;
 
 import static com.dexma.challenge.tennis.rules.PlayerScore.*;
-import static com.dexma.challenge.tennis.rules.Winner.RECEIVER_WINS;
-import static com.dexma.challenge.tennis.rules.Winner.SERVER_WINS;
+import static com.dexma.challenge.tennis.Player.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -15,7 +14,7 @@ public class GameTest {
         GameScore currentScore = new GameScore(ZERO, ZERO);
         GameScore expectedScore = new GameScore(FIFTEEN, ZERO);
 
-        GameScore updatedScore = new Game().point(SERVER_WINS, currentScore);
+        GameScore updatedScore = new Game().point(SERVER, currentScore);
 
         assertThat(updatedScore, equalTo(expectedScore));
     }
@@ -25,7 +24,7 @@ public class GameTest {
         GameScore currentScore = new GameScore(FIFTEEN, FIFTEEN);
         GameScore expectedScore = new GameScore(FIFTEEN, THIRTY);
 
-        GameScore updatedScore = new Game().point(RECEIVER_WINS, currentScore);
+        GameScore updatedScore = new Game().point(RECEIVER, currentScore);
 
         assertThat(updatedScore, equalTo(expectedScore));
     }
@@ -35,7 +34,7 @@ public class GameTest {
         GameScore currentScore = new GameScore(THIRTY, THIRTY);
         GameScore expectedScore = new GameScore(FORTY, THIRTY);
 
-        GameScore updatedScore = new Game().point(SERVER_WINS, currentScore);
+        GameScore updatedScore = new Game().point(SERVER, currentScore);
 
         assertThat(updatedScore, equalTo(expectedScore));
     }
@@ -45,7 +44,7 @@ public class GameTest {
         GameScore currentScore = new GameScore(FORTY, FORTY);
         GameScore expectedScore = new GameScore(FORTY, ADVANTAGE);
 
-        GameScore updatedScore = new Game().point(RECEIVER_WINS, currentScore);
+        GameScore updatedScore = new Game().point(RECEIVER, currentScore);
 
         assertThat(updatedScore, equalTo(expectedScore));
     }
@@ -55,7 +54,7 @@ public class GameTest {
         GameScore currentScore = new GameScore(ADVANTAGE, FORTY);
         GameScore expectedScore = new GameScore(FORTY, FORTY);
 
-        GameScore updatedScore = new Game().point(RECEIVER_WINS, currentScore);
+        GameScore updatedScore = new Game().point(RECEIVER, currentScore);
 
         assertThat(updatedScore, equalTo(expectedScore));
     }
@@ -65,7 +64,7 @@ public class GameTest {
         GameScore currentScore = new GameScore(FORTY, THIRTY);
         GameScore expectedScore = new GameScore(WIN, THIRTY);
 
-        GameScore updatedScore = new Game().point(SERVER_WINS, currentScore);
+        GameScore updatedScore = new Game().point(SERVER, currentScore);
 
         assertThat(updatedScore, equalTo(expectedScore));
     }
@@ -75,7 +74,7 @@ public class GameTest {
         GameScore currentScore = new GameScore(FORTY, ADVANTAGE);
         GameScore expectedScore = new GameScore(FORTY, WIN);
 
-        GameScore updatedScore = new Game().point(RECEIVER_WINS, currentScore);
+        GameScore updatedScore = new Game().point(RECEIVER, currentScore);
 
         assertThat(updatedScore, equalTo(expectedScore));
     }
